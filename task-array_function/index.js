@@ -153,4 +153,4 @@ class LinkedList {
   }
 }
 const myNode = new LinkedList()
-myNode.add(10)
+myNode.add(15)
