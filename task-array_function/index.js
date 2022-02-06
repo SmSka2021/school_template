@@ -59,3 +59,98 @@ const a = bind(user.fu, user)
 const b = bind(a, { el: 20 })
 a() /* 10 */
 b() /* 10 */
+
+class Node {
+  constructor(data) {
+    this.data = data
+    this.next = null
+  }
+}
+class LinkedList {
+  constructor() {
+    this.head = null
+  }
+
+  add(data) {
+    const node = new Node(data)
+    if (!this.head) {
+      this.head = node
+    }
+    if (!this.next) {
+      this.next = node
+    }
+    return this
+  }
+
+  addAfter() {
+    const node = new Node()
+    if (!this.head || !this.next) {
+      this.head = node
+      this.next = node
+      return this
+    }
+    const currentNode = this.head
+    while (currentNode.next) {
+      currentNode.next = currentNode.next.next
+    }
+    currentNode.next = node
+    node.next = null
+    return node
+  }
+
+  delete(data) {
+    if (!this.head) {
+      return null
+    }
+    let deletNode = null
+    while (this.head && this.head.data === data) {
+      deletNode = this.head
+      this.head = this.head.next
+    }
+    let currentNode = this.head
+    if (currentNode !== null) {
+      while (currentNode.next) {
+        if (currentNode.next.data === data) {
+          deletNode = currentNode.next
+          currentNode.next = currentNode.next.next
+        } else {
+          currentNode = currentNode.next
+        }
+      }
+    }
+    if (this.next == null && this.next.data === data) {
+      this.next = currentNode
+    }
+    return deletNode
+  }
+
+  getHead() {
+    if (!this.head) {
+      return null
+    }
+    const headNode = this.head
+    if (this.head.next) {
+      this.head = this.head.next
+    } else {
+      this.head = null
+      this.next = null
+    }
+    return headNode
+  }
+
+  find(data) {
+    if (!this.head) {
+      return null
+    }
+    let currentNode = this.head
+    while (currentNode) {
+      if (data !== undefined && currentNode.data === data) {
+        return currentNode
+      }
+      currentNode = currentNode.next
+    }
+    return null
+  }
+}
+const myNode = new LinkedList()
+myNode.add(10)
