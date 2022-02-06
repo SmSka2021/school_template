@@ -22,6 +22,7 @@
         "import/prefer-default-export": 0,
         "semi": ["error", "never"],
         "no-restricted-syntax": ["off", "ForOfStatement"],
-        "linebreak-style": ["error", "windows"]       
+        "linebreak-style": ["error", "windows"],
+        "max-classes-per-file": ["error", 2]       
     }
 }

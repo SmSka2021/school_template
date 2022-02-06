@@ -38,3 +38,24 @@ function reduce(fn, arr, start) {
   return result
 }
 reduce((a, b) => a * b, [1, 2, 3], 5)
+
+/* bind */
+function bind(fn, context) {
+  const clone = { ...context }
+  return function method() {
+    clone.newMethod = fn
+    const res = clone.newMethod()
+    delete clone.newMethod
+    return res
+  }
+}
+const user = {
+  el: 10,
+  fu() {
+    return this.el
+  },
+}
+const a = bind(user.fu, user)
+const b = bind(a, { el: 20 })
+a() /* 10 */
+b() /* 10 */
