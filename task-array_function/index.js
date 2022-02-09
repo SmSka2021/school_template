@@ -1,156 +1,72 @@
-function filter(func, arr) {
-  const res = []
-  for (const key of arr) {
-    if (func(key)) {
-      res.push(key)
-    }
-  }
-  return res
-}
-filter((a) => a < 5, [1, 7, 3])
+/* eslint no-extend-native: ["error", { "exceptions": ["Array"] }] */
 
-function map(func, arr) {
-  const resul = []
-  for (const key of arr) {
-    const item = func(key)
-    resul.push(item)
-  }
-  return resul
-}
-map((a) => a + 2, [1, 2, 3])
-
-function forEach(fun, arr) {
-  for (let i = 0; i < arr.length; i += 1) {
-    const item = fun(arr[i])
-    /* eslint-disable */
-    arr[i] = item
-    /* eslint-enable */
+// Array.map
+Array.prototype.customMap = function myMap(callback) {
+  const currentArr = this
+  const arr = []
+  for (let i = 0; i < currentArr.length; i += 1) {
+    const elem = currentArr[i]
+    const newElem = callback(elem, i, currentArr)
+    newElem.push(arr)
   }
   return arr
 }
-forEach((a) => a + 100, [1, 2, 3])
+Array.prototype.customMap((a) => a + 2, [1, 2, 3])
 
-function reduce(fn, arr, start) {
-  let result = start
-  for (let i = 0; i < arr.length; i += 1) {
-    result = fn(result, arr[i])
+// Array.reduce
+Array.prototype.customReduce = function myReduce(callback, start) {
+  const myArr = this
+  let startIndex
+  let result
+  if (!start) {
+    [result] = myArr
+    startIndex = 1
+  } else {
+    result = start
+    startIndex = 0
+  }
+  for (let i = startIndex; i < myArr.length; i += 1) {
+    const elem = myArr[i]
+    result = callback(result, elem, i, myArr)
   }
   return result
 }
-reduce((a, b) => a * b, [1, 2, 3], 5)
 
-/* bind */
-function bind(fn, context) {
-  const clone = { ...context }
-  return function method() {
-    clone.newMethod = fn
-    const res = clone.newMethod()
-    delete clone.newMethod
-    return res
+// Array.filter
+Array.prototype.customFilter = function myFilter(callback) {
+  const myArr = this
+  const resArr = []
+  for (let i = 0; i < myArr.length; i += 1) {
+    const elem = myArr[i]
+    const fn = callback(elem, i, myArr)
+    if (fn) {
+      resArr.push(elem)
+    }
+  }
+  return resArr
+}
+
+// Array.forEach
+Array.prototype.customForEach = function myForEach(callback) {
+  const myArr = this
+  for (let i = 0; i < myArr.length; i += 1) {
+    const elem = myArr[i]
+    callback(elem, i, myArr)
   }
 }
-const user = {
-  el: 10,
-  fu() {
-    return this.el
-  },
-}
-const a = bind(user.fu, user)
-const b = bind(a, { el: 20 })
-a() /* 10 */
-b() /* 10 */
-
-class Node {
-  constructor(data) {
-    this.data = data
-    this.next = null
+// Bind
+Function.customBind = function myBind(contxt) {
+  const func = this
+  return function f(...args) {
+    return func.apply(contxt, args)
   }
 }
-class LinkedList {
-  constructor() {
-    this.head = null
-  }
 
-  add(data) {
-    const node = new Node(data)
-    if (!this.head) {
-      this.head = node
-    }
-    if (!this.next) {
-      this.next = node
-    }
-    return this
+// Bind2
+Function.customBind = function myBind2(contxt) {
+  const func = function f(...args) {
+    return func.clearFn.apply(contxt, args)
   }
-
-  addAfter() {
-    const node = new Node()
-    if (!this.head || !this.next) {
-      this.head = node
-      this.next = node
-      return this
-    }
-    const currentNode = this.head
-    while (currentNode.next) {
-      currentNode.next = currentNode.next.next
-    }
-    currentNode.next = node
-    node.next = null
-    return node
-  }
-
-  delete(data) {
-    if (!this.head) {
-      return null
-    }
-    let deletNode = null
-    while (this.head && this.head.data === data) {
-      deletNode = this.head
-      this.head = this.head.next
-    }
-    let currentNode = this.head
-    if (currentNode !== null) {
-      while (currentNode.next) {
-        if (currentNode.next.data === data) {
-          deletNode = currentNode.next
-          currentNode.next = currentNode.next.next
-        } else {
-          currentNode = currentNode.next
-        }
-      }
-    }
-    if (this.next == null && this.next.data === data) {
-      this.next = currentNode
-    }
-    return deletNode
-  }
-
-  getHead() {
-    if (!this.head) {
-      return null
-    }
-    const headNode = this.head
-    if (this.head.next) {
-      this.head = this.head.next
-    } else {
-      this.head = null
-      this.next = null
-    }
-    return headNode
-  }
-
-  find(data) {
-    if (!this.head) {
-      return null
-    }
-    let currentNode = this.head
-    while (currentNode) {
-      if (data !== undefined && currentNode.data === data) {
-        return currentNode
-      }
-      currentNode = currentNode.next
-    }
-    return null
-  }
+  func.clearFn = this.clearFn || this
+  return func
 }
-const myNode = new LinkedList()
-myNode.add(15)
