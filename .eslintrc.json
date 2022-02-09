@@ -20,6 +20,9 @@
     ],
     "rules": {
         "import/prefer-default-export": 0,
-        "semi": ["error", "never"]
+        "semi": ["error", "never"],
+        "no-restricted-syntax": ["off", "ForOfStatement"],
+        "linebreak-style": ["error", "unix"],
+        "max-classes-per-file": ["error", 1]       
     }
 }
