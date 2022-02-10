@@ -1,15 +1,6 @@
 /* eslint-disable max-classes-per-file */
 function Builder(value) {
-  if (value) {
-    this.value = value
-  } else {
-    if (typeof value === 'number') {
-      this.value = 0
-    }
-    if (typeof value === 'string') {
-      this.value = ''
-    }
-  }
+  this.value = value
 }
 Builder.prototype.getValue = function getValue() {
   return this.value
@@ -20,41 +11,35 @@ Builder.prototype.plus = function plus(...args) {
   for (let i = 0; i < arr.length; i += 1) {
     res += arr[i]
   }
-  return res
+  this.value = res
+  return this
 }
 class StringBuilder extends Builder {
-  constructor(value) {
+  constructor(value = '') {
     super(value)
     this.getValue = this.getValue.bind(this)
-  }
-
-  getValue() {
-    const getterValue = super.getValue()
-    return getterValue
-  }
-
-  plus() {
-    const pluss = super.plus()
-    return pluss
   }
 
   minus(n) {
     const str = this.value
     const chars = str.slice(0, str.length - n)
-    return chars
+    this.value = chars
+    return this
   }
 
   multiply(n) {
     const str = this.value
     const newStr = str.repeat(n)
-    return newStr
+    this.value = newStr
+    return this
   }
 
   divide(n) {
     const str = this.value
     const k = Math.floor(str.length / n)
     const newStr = str.slice(0, k)
-    return newStr
+    this.value = newStr
+    return this
   }
 
   remove(str) {
@@ -62,13 +47,15 @@ class StringBuilder extends Builder {
     const sizeStr = str.length
     const start = oldStr.search(str)
     const newStr = oldStr.slice(0, start) + oldStr.substr(start + sizeStr)
-    return newStr
+    this.value = newStr
+    return this
   }
 
   sub(from, n) {
     const oldStr = this.value
     const newStr = oldStr.slice(from, n + 1)
-    return newStr
+    this.value = newStr
+    return this
   }
 
   static run() {
