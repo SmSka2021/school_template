@@ -15,7 +15,7 @@ Builder.prototype.getValue = function getValue() {
   return this.value
 }
 Builder.prototype.plus = function plus(...args) {
-  const arr = [...args]
+  const arr = [].concat(...args)
   let res = this.value
   for (let i = 0; i < arr.length; i += 1) {
     res += arr[i]
