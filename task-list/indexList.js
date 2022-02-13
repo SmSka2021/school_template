@@ -93,14 +93,6 @@ class LinkedList {
     }
     return null
   }
-
-  printList() {
-    let tmp = this.head
-    while (tmp != null) {
-      console.log(tmp.value)
-      tmp = tmp.next
-    }
-  }
 }
 
 const myList = new LinkedList()
@@ -108,4 +100,3 @@ myList.add(15)
 myList.add(2)
 myList.add(7)
 myList.delete(15)
-myList.printList()
