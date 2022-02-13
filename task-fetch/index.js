@@ -8,6 +8,7 @@ const temperature = document.querySelector('#temperature')
 const windSpeed = document.querySelector('#windSpeed')
 const wind2 = document.querySelector('#wind2')
 const humidity = document.querySelector('#humidity')
+const weather = document.querySelector('#weather')
 let nevStr
 let arr = {}
 function showData(data) {
@@ -18,6 +19,7 @@ function showData(data) {
   windSpeed.innerText = `${data.current.wind_speed} km/h`
   wind2.innerText = data.current.wind_dir
   humidity.innerText = `${data.current.humidity} %`
+  weather.src = `${data.current.weather_icons}`
 }
 async function getData() {
   const res = await fetch(`http://api.weatherstack.com/current?access_key=5e0116c7252bfda72d7268b4c6065adb&query=query=${nevStr}`)

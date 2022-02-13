@@ -37,6 +37,10 @@ body {
 h1 {
   margin-left: 30px;
 }
+#city, #temperature {
+  font-size: 25px;
+  color: rgb(189, 14, 14);
+}
 
 form {
   margin: 10px 30px 10px auto;
@@ -44,7 +48,9 @@ form {
   font-family: 'Inter';
   position: relative;
 }
-
+.weather {
+ padding-left: 5%; 
+}
 .search {
   border: 2px solid blue;
   border-radius: 30px;
