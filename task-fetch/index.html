@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="normalize.css">
+    <link rel="stylesheet" href="style.css">
+    <title>Weather API</title>
+    <link rel="shortcut icon" href="./assets/img/favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+    <header>
+        <div class="header__container">
+            <h1>Weather API</h1>
+            <form method="get" action="#">
+                <input id="input1" class="search example" type="search" placeholder="enter your city for search">
+                <input id="input2" class="search example" type="search" placeholder="enter your country for search">
+                <button id="btn" type="submit">Click me</button>
+            </form>
+        </div>
+    </header>
+    <main>
+        <section class="container">
+            <div class="container__item">
+                <table>
+                    <tr>
+                        <td>City</td>
+                        <td class="red" id="city"></td>
+                    </tr>
+                    <tr>
+                        <td>Country</td>
+                        <td class="red" id="country"></td>
+                    </tr>
+                    <tr>
+                        <td>Local Time</td>
+                        <td class="red" id="localTime"></td>
+                    </tr>
+                    <tr>
+                        <td>Temperature</td>
+                        <td class="red" id="temperature"></td>
+                    </tr>
+                    <tr>
+                        <td>Wind Speed</td>
+                        <td class="red" id="windSpeed"></td>
+                    </tr>
+                    <tr>
+                        <td>Direction of the wind</td>
+                        <td class="red" id="wind2"></td>
+                    </tr>
+                    <tr>
+                        <td>Humidity</td>
+                        <td class="red" id="humidity"></td>
+                    </tr>
+                </table>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <div class="container__footer">
+            <div><span>&copy;</span>
+                <span>2022</span>
+                <a href="https://github.com/SmSka2021?tab=repositories" target="_blank">github</a>
+            </div>
+        </div>
+    </footer>
+    <script src="index.js"></script>
+</body>
+
+</html>
