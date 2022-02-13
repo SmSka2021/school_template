@@ -26,7 +26,9 @@ async function getData() {
   showData(arr)
 }
 function validation(str, str2) {
-  nevStr = `${str[0].toUpperCase()}${str.slice(1).toLowerCase()}, ${str2[0].toUpperCase()}${str2.slice(1).toLowerCase()}`
+  const val1 = str[0].toUpperCase() + str.slice(1).toLowerCase()
+  const val2 = str2[0].toUpperCase() + str2.slice(1).toLowerCase()
+  nevStr = `${val1}, ${val2}`
   getData()
 }
 function getItem() {
