@@ -1,7 +1,7 @@
-/* eslint-disable max-classes-per-file */
+/* eslint-disable max-classes-per-file, no-param-reassign */
 class Node {
-  constructor(data) {
-    this.data = data
+  constructor(value) {
+    this.value = value
     this.next = null
   }
 }
@@ -9,17 +9,18 @@ class Node {
 class LinkedList {
   constructor() {
     this.head = null
-    this.next = null
+    this.tail = null
   }
 
   // stores specified value in list; method should be chainable
-  add(data) {
-    const node = new Node(data)
+  add(value) {
+    const node = new Node(value)
     if (!this.head) {
       this.head = node
-    }
-    if (!this.next) {
-      this.next = node
+      this.tail = node
+    } else {
+      this.tail.next = node
+      this.tail = node
     }
     return this
   }
@@ -27,69 +28,47 @@ class LinkedList {
   // add specified value in list after node; method should be chainable
   /* addAfter(value, parentNode) */
   addAfter(value, parentNode) {
-    const node = new Node()
-    node.value = value
-    if (!this.head || !this.next) {
-      this.head = node
-      this.next = node
-      return this
-    }
-    const currentNode = this.head
-    while (currentNode.next) {
-      if (currentNode === parentNode) {
-        const reserv = currentNode.next
-        currentNode.next = node
-        currentNode.next.next = reserv
-      }
-      currentNode.next = currentNode.next.next
-    }
-    return node
+    const node = new Node(value)
+    const tmp = parentNode.next
+    parentNode.next = node
+    node.next = tmp
+    return this
   }
 
   // removes first node from list by provided value; method should be chainable;
-  delete(data) {
+  delete(value) {
     if (!this.head) {
       return null
     }
-    let deletNode = null
-    while (this.head && this.head.data === data) {
-      deletNode = this.head
-      this.head = this.head.next // назначаю новый head, так как старый удаляю
+    if (this.head.value === value) {
+      const tmp = this.head.next
+      this.head = null
+      this.head = tmp
+      return this
     }
     let currentNode = this.head
-    if (currentNode !== null) {
-      while (currentNode.next) {
-        if (currentNode.next.data === data) {
-          deletNode = currentNode.next
-          currentNode.next = currentNode.next.next
-        } else {
-          currentNode = currentNode.next
-        }
+    while (currentNode.next != null) {
+      if (currentNode.next.value === value) {
+        const tmp = currentNode.next.next
+        currentNode.next = null
+        currentNode.next = tmp
+        return this
       }
+      currentNode = currentNode.next
     }
-    if (this.next == null && this.next.data === data) {
-      this.next = currentNode
-    }
-    return deletNode
+    return this
   }
 
   // returns head of the list//
   getHead() {
-    if (!this.head) {
-      return null
-    }
-    const headNode = this.head
-    return headNode
+    return this.head
   }
 
-  // looking for stored data in list using value; method must return true/false
-  isExist(data) {
-    if (!this.head) {
-      return false
-    }
+  // looking for stored value in list using value; method must return true/false
+  isExist(value) {
     let currentNode = this.head
     while (currentNode) {
-      if (data !== undefined && currentNode.data === data) {
+      if (currentNode.value === value) {
         return true
       }
       currentNode = currentNode.next
@@ -98,31 +77,35 @@ class LinkedList {
   }
 
   // find Node with specified value or by specific function; return node;
-  find(data) {
-    if (!this.head) {
-      return null
-    }
+  find(value) {
     let currentNode = this.head
-    if (typeof data === 'function') { // find((element) => { /* ... */ })
-      // function should return true/false
-      // element - value of node which you look now
-      while (currentNode) {
-        if (data(currentNode.value)) {
-          return true
-        }
-        currentNode = currentNode.next
+    while (currentNode) {
+      if (value(currentNode.value)) {
+        return currentNode
       }
-      return false
+      currentNode = currentNode.next
     }
     while (currentNode) {
-      if (data !== undefined && currentNode.data === data) {
+      if (currentNode.value === value) {
         return currentNode
       }
       currentNode = currentNode.next
     }
     return null
   }
+
+  printList() {
+    let tmp = this.head
+    while (tmp != null) {
+      console.log(tmp.value)
+      tmp = tmp.next
+    }
+  }
 }
 
-const myNode = new LinkedList()
-myNode.add(15)
+const myList = new LinkedList()
+myList.add(15)
+myList.add(2)
+myList.add(7)
+myList.delete(15)
+myList.printList()
