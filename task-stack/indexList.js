@@ -10,7 +10,7 @@ class Stack {
   }
 
   pop() {
-    this.data.pop()
+    return this.data.pop()
   }
 }
 
@@ -25,7 +25,7 @@ class Queue {
   }
 
   pop() {
-    this.data.shift()
+    return this.data.shift()
   }
 }
 
@@ -41,7 +41,6 @@ class LinkedList {
   constructor() {
     this.head = null
     this.tail = null
-    this.head.prev = null
   }
 
   // stores specified value in list; method should be chainable
@@ -106,11 +105,13 @@ class LinkedList {
   // find Node with specified value or by specific function; return node;
   find(value) {
     let currentNode = this.head
-    while (currentNode) {
-      if (value(currentNode.value)) {
-        return currentNode
+    if (typeof value === 'function') {
+      while (currentNode) {
+        if (value(currentNode.value)) {
+          return currentNode
+        }
+        currentNode = currentNode.next
       }
-      currentNode = currentNode.next
     }
     while (currentNode) {
       if (currentNode.value === value) {
