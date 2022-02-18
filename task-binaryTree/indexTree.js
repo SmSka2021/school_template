@@ -90,6 +90,7 @@ class BinaryTree {
   // removes node from tree by provided key; method should be chainable;
   remove(key) {
     this.root = this.removeNode(this.root, key)
+    return this
   }
 
   static minNode(node) {
@@ -101,7 +102,7 @@ class BinaryTree {
 
   removeNode(current = this.root, key) {
     if (key == null || key === undefined) {
-      return
+      return null
     }
     if (key === current.key) {
       if (current.left == null && current.right == null) {
@@ -129,4 +130,4 @@ class BinaryTree {
 }
 
 const myBinaryTree = new BinaryTree()
-myBinaryTree.insert(10, 'jyuk').insert(1, 'f').insert(17, 'f').insert(7, 'f')
+myBinaryTree.insert(10, 'juk').insert(1, 'f').insert(17, 'f').insert(7, 'fg')
